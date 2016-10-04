@@ -70,6 +70,7 @@ namespace DrabadanCoreLib.Core.Objects.UOObjects
         public static async Task MoveTo(this Self self, uint id)
         {
             await Task.Delay(50);
+            await Task.Delay(50);
         }
     }
 }
