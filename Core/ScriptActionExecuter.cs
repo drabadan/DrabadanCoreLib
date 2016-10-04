@@ -61,7 +61,7 @@ namespace DrabadanCoreLib.Core
             () => StealthClient.GetConnectedStatus()
         };
 
-
+        //random comment
         protected static async Task<T> ScriptApiCallAsync<T>(Func<T> scriptAction, int delay = 0, [CallerMemberName] string caller = "ScriptAction")
         {
             bool callIsValid = await ValidatorActionsAsync(SimpleCallValidationActionsList);
