@@ -31,20 +31,17 @@ namespace DrabadanCoreLib_WF_TestApp
 
         private async void Test_button_Click(object sender, EventArgs e)
         {
-            GetGumpInfoTest();
+            await GetGumpInfoTest();
         }
 
         private static Stealth _stealth = Stealth.Client;
 
-        private void GetGumpInfoTest()
+        private async Task GetGumpInfoTest()
         {
-            _stealth.IncomingGump += (sender, e) =>
+            _stealth.IncomingGump += async(sender, e) =>
              {
                  SendConsoleMessage($"{e.GumpId}");
-                 Gump g = Gump.GetGump(e.GumpId);
-                 SendConsoleMessage($"{g.Buttons.Count}");
-                 g.TextEdits.ForEach(ed => ed.Text = "Hello");
-                 g.Buttons.First().Click();
+                 bool result = await Task.Run(()=>_stealth.NumGumpTextEntryTest());                 
              };
             
         }
