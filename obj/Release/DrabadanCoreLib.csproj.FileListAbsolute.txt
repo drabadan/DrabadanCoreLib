@@ -1,0 +1,8 @@
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\DrabadanCoreLib.dll
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\DrabadanCoreLib.pdb
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\Newtonsoft.Json.dll
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\Newtonsoft.Json.xml
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Release\DrabadanCoreLib.dll
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Release\DrabadanCoreLib.pdb
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\DrabadanCoreLib.dll.CodeAnalysisLog.xml
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\DrabadanCoreLib.dll.lastcodeanalysissucceeded

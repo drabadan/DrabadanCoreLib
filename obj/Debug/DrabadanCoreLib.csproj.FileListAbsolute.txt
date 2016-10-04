@@ -1,0 +1,6 @@
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Debug\DrabadanCoreLib.dll
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Debug\DrabadanCoreLib.pdb
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Debug\Newtonsoft.Json.dll
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Debug\Newtonsoft.Json.xml
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Debug\DrabadanCoreLib.dll
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Debug\DrabadanCoreLib.pdb
