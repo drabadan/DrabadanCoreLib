@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DrabadanCoreLib.Core.ScriptActions
 {
+    
+
+
     public sealed class ContainerOpener : ScriptActionExecuter
     {
         private ContainerOpener() { }
@@ -37,16 +40,20 @@ namespace DrabadanCoreLib.Core.ScriptActions
             }
         }
 
-        public static async Task<bool> OpenCorpseAsync(uint corpseId)
+        public static async Task<OpenCorpseResult> OpenCorpseAsync(uint corpseId, bool useEarnedRight = false)
         {
             if (_lastOpenedContainer == corpseId)
-                return true;
+                return OpenCorpseResult.Success;
 
             bool itemExist = await FindTypeActions.ItemExistAsync(corpseId);
             if (!itemExist)
-                return false;
+                return OpenCorpseResult.Fail;
 
             bool result = false;
+            var lst = new List<string>();
+            if (useEarnedRight)
+                lst.Add("earn the right to loot this");
+
             using (var cts = new CancellationTokenSource())
             {
                 result = await ScriptApiCallAsync<DrawContainerEventArgs>(
@@ -55,17 +62,19 @@ namespace DrabadanCoreLib.Core.ScriptActions
                         {
                             if (e.ModelGump == 0x9)
                             {
+                                result = true;
                                 cts?.Cancel();
                             }
-                            //else
-                            //    throw new ArgumentException();
-                        }, cts);
+                        }, lst, cts);
             }
 
             if (result)
-                _lastOpenedContainer = corpseId;
+                return OpenCorpseResult.Success;
+            else
+                return OpenCorpseResult.NotPublic;
 
-            return result;
+
+
         }
 
         public static async Task<bool> OpenContainerAsync(uint containerId)
@@ -106,12 +115,15 @@ namespace DrabadanCoreLib.Core.ScriptActions
             IList<uint> items = await ScriptApiCallAsync(() => { return StealthClient.GetFindList(); });
             return items;
         }
-
-        public static async Task<IList<uint>> OpenCorpseGetContentsAsync(uint containerId)
+        //todo: should make propper return value of method
+        public static async Task<IList<uint>> OpenCorpseGetContentsAsync(uint containerId, bool useEarnedRight = false)
         {
-            bool opened = await OpenCorpseAsync(containerId);
-            if (!opened)
+            var opened = await OpenCorpseAsync(containerId, useEarnedRight);
+            if (opened == OpenCorpseResult.Fail)
                 return null;
+
+            if (opened == OpenCorpseResult.NotPublic)
+                return new List<uint> { 0 };
 
             var value = await ScriptApiCallAsync(() => { return StealthClient.FindTypeEx(0xFFFF, 0xFFFF, containerId, true); }, 300);
             IList<uint> items = await ScriptApiCallAsync(() => { return StealthClient.GetFindList(); }, 0);

@@ -6,3 +6,9 @@ C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Release\DrabadanCoreLib.dl
 C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Release\DrabadanCoreLib.pdb
 C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\DrabadanCoreLib.dll.CodeAnalysisLog.xml
 C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\bin\Release\DrabadanCoreLib.dll.lastcodeanalysissucceeded
+C:\Users\Drabadan\Google Drive\DrabadanCoreLib\bin\Release\DrabadanCoreLib.dll
+C:\Users\Drabadan\Google Drive\DrabadanCoreLib\bin\Release\DrabadanCoreLib.pdb
+C:\Users\Drabadan\Google Drive\DrabadanCoreLib\bin\Release\Newtonsoft.Json.dll
+C:\Users\Drabadan\Google Drive\DrabadanCoreLib\bin\Release\Newtonsoft.Json.xml
+C:\Users\Drabadan\Google Drive\DrabadanCoreLib\obj\Release\DrabadanCoreLib.dll
+C:\Users\Drabadan\Google Drive\DrabadanCoreLib\obj\Release\DrabadanCoreLib.pdb

@@ -254,6 +254,8 @@ namespace StealthAPI
             ushort replyMethod;
             do
             {
+                if (_replyes.Count == 0)
+                    return default(T);
                 packet = _replyes.Dequeue();
                 replyMethod = BitConverter.ToUInt16(packet.Data, 0);
             } while (replyMethod != (ushort) type);

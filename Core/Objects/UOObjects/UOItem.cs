@@ -33,7 +33,7 @@ namespace DrabadanCoreLib.Core.Objects.UOObjects
             Tooltip = await UoObjectProperty<string>.SetPropertyValueAsync(async () =>
             {
                 var tooltip = await TooltipHandler.GetTooltipAsync(Id.Value);
-                return !string.IsNullOrEmpty(tooltip) ? new UoObjectProperty<string>(tooltip, true, UoPropertyStateEnum.Initialized) : default(UoObjectProperty<string>);
+                return !string.IsNullOrEmpty(tooltip) ? new UoObjectProperty<string>(tooltip, true, UoPropertyStateEnum.Initialized) : new UoObjectProperty<string>("", true, UoPropertyStateEnum.NotInitialized);
             });
         }
     }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DrabadanCoreLib.Core.Objects;
+using System.Diagnostics.Contracts;
 
 namespace DrabadanCoreLib.Core.ScriptActions
 {
@@ -24,22 +25,12 @@ namespace DrabadanCoreLib.Core.ScriptActions
         {
             if (Self.SelfInitializedStatus == UoPropertyStateEnum.NotInitialized)
                 await Self.Player.InitializeSelf();
-
+            
             string context = Self.Player.ContextMenu.Value;
+            var lines = context.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
 
-            var splitted = context.Split('|');
-            byte nCount = 0;
-            foreach (var src in splitted)
-            {
-                if (src.Contains("Toggle Item Insurance"))
-                    break;
-
-                if (src.Contains("\r\n"))
-                    nCount++;
-            }
-
-            _contextMenuEntry = nCount;            
-        }
+            _contextMenuEntry = (byte)lines.FindIndex(l => l.Contains("Toggle Item Insurance"));
+     }
 
         public static async Task InsureItemAsync(uint itemId)
         {

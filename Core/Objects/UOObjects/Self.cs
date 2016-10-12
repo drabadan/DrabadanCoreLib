@@ -67,6 +67,16 @@ namespace DrabadanCoreLib.Core.Objects.UOObjects
 
     public static class SelfExtensions
     {
+        public static async Task HideWithSpellAsync(this Self self)
+        {
+            var hidden = await SelfActions.GetHiddenStatusAsync();            
+            if (hidden)
+                return;
+
+            await CastingSpellsHandler.CastInvisibiltyAsync(self.Id.Value);
+        }
+
+
         public static async Task MoveTo(this Self self, uint id)
         {
             await Task.Delay(50);

@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using StealthAPI;
+using System.Diagnostics.Contracts;
 
 namespace DrabadanCoreLib.Core
 {
@@ -20,14 +21,15 @@ namespace DrabadanCoreLib.Core
                 try
                 {
                     return Stealth.Client;
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     Messanger?.Invoke($"[Error message] Stealth error message! {ex.Message}");
                     return default(Stealth);
                 }
             }
         }
-    
+
         private const int AverageLagConst = 1000;
         private const int RetriesCount = 10;
 
@@ -42,11 +44,13 @@ namespace DrabadanCoreLib.Core
                     try
                     {
                         result = a.Invoke();
-                    }catch(SocketException)
+                    }
+                    catch (SocketException)
                     {
                         Messanger?.Invoke("[ActionValidator Error message] Stealth not found!");
                         result = false;
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Messanger?.Invoke(ex.Message);
                         result = false;
@@ -67,7 +71,7 @@ namespace DrabadanCoreLib.Core
             bool callIsValid = await ValidatorActionsAsync(SimpleCallValidationActionsList);
             if (callIsValid)
             {
-                if(delay > 0)
+                if (delay > 0)
                     await Task.Delay(delay);
                 T result = await Task.Run(() => { return scriptAction(); });
                 return result;
@@ -78,7 +82,7 @@ namespace DrabadanCoreLib.Core
             return default(T);
         }
 
-        protected static async Task ScriptApiCallAsync(Action scriptAction,int delay = 0, [CallerMemberName] string caller = "ScriptAction")
+        protected static async Task ScriptApiCallAsync(Action scriptAction, int delay = 0, [CallerMemberName] string caller = "ScriptAction")
         {
             bool callIsValid = await ValidatorActionsAsync(SimpleCallValidationActionsList);
             if (callIsValid)
@@ -95,10 +99,10 @@ namespace DrabadanCoreLib.Core
         {
             var eventList = typeof(Stealth).GetEvents().ToList();
             return (from evnt in eventList
-                let evntArgsList = evnt.EventHandlerType.GenericTypeArguments
-                from arg in evntArgsList
-                where arg == evArgsType
-                select evnt).FirstOrDefault();
+                    let evntArgsList = evnt.EventHandlerType.GenericTypeArguments
+                    from arg in evntArgsList
+                    where arg == evArgsType
+                    select evnt).FirstOrDefault();
         }
 
         protected static async Task<bool> ScriptApiCallAsync<T>(Action scriptAction, EventHandler<T> evHandler, CancellationTokenSource canceller, int maxDelay = 3000)
@@ -123,7 +127,76 @@ namespace DrabadanCoreLib.Core
 
                     Stealth.Client.ClilocSpeech += (sender, e) =>
                     {
-                        if (e.Text.Contains("perform another action"))
+                        if (e.Text.Contains("perform another action") || e.Text.Contains("spell fizzles"))
+                        {
+                            restartLocker = true;
+                        }
+                    };
+
+                    do
+                    {
+                        if (restartCounter < RetriesCount)
+                            restartCounter++;
+                        else
+                            return false;
+
+                        scriptAction();
+                        await Task.Delay(AverageLagConst);
+                        await Task.Delay(maxDelay, canceller.Token);
+                    } while (!restartLocker);
+                }
+                catch (TaskCanceledException)
+                {
+                    //removing current handlers                
+                    ev.RemoveEventHandler(Stealth.Client, handler);
+
+                    return true;
+                }
+                catch (SocketException)
+                {
+                    ev.RemoveEventHandler(Stealth.Client, handler);
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return false;
+            });
+
+            return actionResult;
+        }
+
+        protected static async Task<bool> ScriptApiCallAsync<T>(Action scriptAction, EventHandler<T> evHandler, List<string> speechCancellers,CancellationTokenSource canceller, int maxDelay = 3000)
+            where T : EventArgs
+        {
+            EventInfo ev = EventResolver(typeof(T));
+            if (ev == null)
+                throw new ArgumentException($"{typeof(T).Name} is not supported by Stealth!");
+
+            bool restartLocker = false;
+            int restartCounter = 0;
+
+            Delegate handler = null;
+
+            bool actionResult = false;
+            actionResult = await Task.Run(async () =>
+            {
+                try
+                {
+                    handler = Delegate.CreateDelegate(ev.EventHandlerType, evHandler.Target, evHandler.Method);
+                    ev.AddEventHandler(Stealth.Client, handler);
+
+                    Stealth.Client.ClilocSpeech += (sender, e) =>
+                    {
+                        foreach(var canc in speechCancellers)
+                            if (e.Text.Contains(canc))
+                            {
+                                canceller.Cancel();
+                                break;
+                            }
+
+                        if (e.Text.Contains("perform another action") || e.Text.Contains("spell fizzles"))
                         {
                             restartLocker = true;
                         }

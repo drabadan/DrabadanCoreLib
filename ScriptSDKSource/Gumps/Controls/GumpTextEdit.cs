@@ -91,13 +91,16 @@ namespace DrabadanCoreLib.Gumps
             get { return _text; }
             set
             {
-                if (!Limit.Equals(-1))
-                    value = value.Substring(0, Limit);
-                var index = Gump.GetGumpIndex(Owner.GumpType);
-                if (Events.InvokeOnGumpReply(Owner,
-                    new GumpReplyEventArgs(this,
-                        (index >= 0) && Stealth.Client.NumGumpTextEntry((ushort)index, TextID, value))))
-                    _text = value;
+                if (value != "")
+                {
+                    if (!Limit.Equals(-1))
+                        value = value.Substring(0, Limit);
+                    var index = Gump.GetGumpIndex(Owner.GumpType);
+                    if (Events.InvokeOnGumpReply(Owner,
+                        new GumpReplyEventArgs(this,
+                            (index >= 0) && Stealth.Client.NumGumpTextEntry((ushort)index, TextID, value))))
+                        _text = value;
+                }
             }
         }
 

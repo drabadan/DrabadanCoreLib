@@ -2501,11 +2501,14 @@ namespace StealthAPI
 
             return true;
         }
+
         public bool CastSpellToObj(string spellName, uint objId)
         {
-            WaitTargetObject(objId);
+            if(objId != 0)
+                WaitTargetObject(objId);
             return CastSpell(spellName);
         }
+
         public bool IsActiveSpellAbility(string spellName)
         {
             uint spellId = GetSpellID(spellName);
@@ -3123,8 +3126,6 @@ namespace StealthAPI
         {
             _client.SendPacket(PacketType.SCClearContextMenu);
         }
-
-
         #endregion
 
         #region Secure Trade
@@ -3231,6 +3232,12 @@ namespace StealthAPI
         {
             return _client.SendPacket<bool>(PacketType.SCNumGumpTextEntry, gumpIndex, textEntryId, value);
         }
+
+        public bool NumGumpTextEntryTest()
+        {
+            return _client.SendPacket<bool>(PacketType.SCNumGumpTextEntry, 0, 1, "Hello bitch");
+        }
+
         internal bool NumGumpRadiobutton(ushort gumpIndex, int radioButtonId, int value)
         {
             return _client.SendPacket<bool>(PacketType.SCNumGumpRadiobutton, gumpIndex, radioButtonId, value);

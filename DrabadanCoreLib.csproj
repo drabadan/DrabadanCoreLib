@@ -52,11 +52,13 @@
     <Compile Include="Core\Objects\CoreObject.cs" />
     <Compile Include="Core\Objects\IHasId.cs" />
     <Compile Include="Core\Objects\UOObjectProperty.cs" />
+    <Compile Include="Core\Objects\UOObjects\EndPointObjects\Corpse.cs" />
     <Compile Include="Core\Objects\UOObjects\Properties\Tooltip.cs" />
     <Compile Include="Core\Objects\UOObjects\Self.cs" />
     <Compile Include="Core\Objects\UOObjects\UOContainer.cs" />
     <Compile Include="Core\Objects\UOObjects\UOItem.cs" />
     <Compile Include="Core\ScriptActionExecuter.cs" />
+    <Compile Include="Core\ScriptActions\CastingSpellsHandler.cs" />
     <Compile Include="Core\ScriptActions\ContainerOpener.cs" />
     <Compile Include="Core\ScriptActions\ContextMenuHandler.cs" />
     <Compile Include="Core\ScriptActions\FindTypeActions.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Core\ScriptActions\Insurer.cs" />
     <Compile Include="Core\ScriptActions\MoveItemActions.cs" />
     <Compile Include="Core\ScriptActions\MoverActions.cs" />
+    <Compile Include="Core\ScriptActions\OpenCorpseResult.cs" />
     <Compile Include="Core\ScriptActions\SelfActions.cs" />
     <Compile Include="Core\ScriptActions\TargetActions.cs" />
     <Compile Include="Core\ScriptActions\TooltipHandler.cs" />
