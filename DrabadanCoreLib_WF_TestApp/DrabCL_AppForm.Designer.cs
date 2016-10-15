@@ -96,8 +96,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.richTextBox1);
             this.Name = "DrabCL_App";
-            this.Text = "Drabadan Core Library WinForms Test App";
-            this.Load += new System.EventHandler(this.DrabCL_App_Load);
+            this.Text = "Drabadan Core Library WinForms Test App";            
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);

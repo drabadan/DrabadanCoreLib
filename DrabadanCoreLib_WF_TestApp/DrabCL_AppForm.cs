@@ -22,13 +22,30 @@ namespace DrabadanCoreLib_WF_TestApp
     public partial class DrabCL_App : Form
     {
         public DrabCL_App()
-        {
+        {   
             InitializeComponent();
-            
-            ScriptActionExecuter.Messanger = SendConsoleMessage;
-            GetSomethingFromTarget_UI ui = new GetSomethingFromTarget_UI(SendConsoleMessage);
-            ui.Dock = DockStyle.Fill;
-            tabControl1.TabPages[1].Controls.Add(ui);
+        }
+        
+        private async void Test_button_Click(object sender, EventArgs e)
+        {
+            //await GetGumpInfoTest();
+            //await MoveAroundHouseTest();
+            //await StaticsTileTest();            
+        }
+
+        protected static Stealth StealthClient
+        {
+            get
+            {
+                if (ScriptActionExecuter.ErrorMessageAction == null)
+                    ScriptActionExecuter.ErrorMessageAction = RaiseErrorMessage;
+                return ScriptActionExecuter.StealthClient;
+            }
+        }
+
+        private static void RaiseErrorMessage(string message)
+        {
+            MessageBox.Show(message);
         }
 
         private void SendConsoleMessage(string message)
@@ -41,21 +58,13 @@ namespace DrabadanCoreLib_WF_TestApp
             });
         }
 
-        private async void Test_button_Click(object sender, EventArgs e)
-        {
-            //await GetGumpInfoTest();
-            //await MoveAroundHouseTest();
-            //await StaticsTileTest();            
-        }
-
-        private static Stealth _stealth = Stealth.Client;
 
         private static async Task StaticsTileTest()
         {
             await Task.Run(() =>
             {
-                byte worldNum = _stealth.GetWorldNum();
-                var statics = _stealth.ReadStaticsXY(872, 509, worldNum);
+                byte worldNum = StealthClient.GetWorldNum();
+                var statics = StealthClient.ReadStaticsXY(872, 509, worldNum);
             });
         }
 
@@ -66,20 +75,12 @@ namespace DrabadanCoreLib_WF_TestApp
 
         private async Task GetGumpInfoTest()
         {
-            _stealth.IncomingGump += async (sender, e) =>
+            StealthClient.IncomingGump += async (sender, e) =>
              {
                  SendConsoleMessage($"{e.GumpId}");
-                 bool result = await Task.Run(() => _stealth.NumGumpTextEntryTest());
+                 bool result = await Task.Run(() => StealthClient.NumGumpTextEntryTest());
              };
 
-        }
-
-        private async void DrabCL_App_Load(object sender, EventArgs e)
-        {
-            CharSelectorHandler_Dialog dialog = new CharSelectorHandler_Dialog();
-            var dialogResult = await dialog.CharacterSelectorResult();
-            if (dialogResult != DialogResult.Yes)
-                Application.Exit();
         }
     }
 }
