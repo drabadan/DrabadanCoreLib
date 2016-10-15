@@ -73,6 +73,12 @@
     <Compile Include="Core\ScriptActions\TooltipHandler.cs" />
     <Compile Include="Core\ScriptActions\UoClientInteractions.cs" />
     <Compile Include="Core\ScriptActions\UseObjectHandler.cs" />
+    <Compile Include="Core\UICore\ScriptFormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\UICore\ScriptFormBase.Designer.cs">
+      <DependentUpon>ScriptFormBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\WorldEnum.cs" />
     <Compile Include="PreLaunchHandlings\CharSelectorHandler_Dialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +221,9 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Core\UICore\ScriptFormBase.resx">
+      <DependentUpon>ScriptFormBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SimpleScripts\UOClientInteractions\GetSomethingFromTarget\GUI\GetSomethingFromTarget_UI.resx">
       <DependentUpon>GetSomethingFromTarget_UI.cs</DependentUpon>
     </EmbeddedResource>

@@ -929,7 +929,11 @@ namespace StealthAPI
             int port = (int)(msg.wParam);
             _isStopped = false;
 
+            if (port == 0)
+                throw new ArgumentException("Stealth port = 0, stealth not found in the system!");
+
             AddTraceMessage("Create Stealth client", "Stealth.Main");
+            
             _client = new StealthClient("localhost", port);
             _client.ServerEventRecieve += cln_ServerEventRecieve;
             _client.StartStopRecieve += _client_StartStopRecieve;

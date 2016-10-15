@@ -14,6 +14,8 @@ namespace DrabadanCoreLib.Core
     public class ScriptActionExecuter
     {
         public static Action<string> Messanger { get; set; }
+        public static Action<string> ErrorMessageAction { get; set; }
+
         public static Stealth StealthClient
         {
             get
@@ -24,6 +26,7 @@ namespace DrabadanCoreLib.Core
                 }
                 catch (Exception ex)
                 {
+                    ErrorMessageAction?.Invoke(ex.Message);
                     Messanger?.Invoke($"[Error message] Stealth error message! {ex.Message}");
                     return default(Stealth);
                 }
