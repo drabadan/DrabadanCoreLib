@@ -12,3 +12,5 @@ C:\Users\Drabadan\Google Drive\DrabadanCoreLib\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Drabadan\Google Drive\DrabadanCoreLib\obj\Debug\DrabadanCoreLib.csprojResolveAssemblyReference.cache
 C:\Users\Drabadan\Google Drive\DrabadanCoreLib\obj\Debug\DrabadanCoreLib.dll
 C:\Users\Drabadan\Google Drive\DrabadanCoreLib\obj\Debug\DrabadanCoreLib.pdb
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Debug\DrabadanCoreLib.UOClientInteractions.GetSomethingFromTarget.GUI.GetSomethingFromTarget_UI.resources
+C:\Users\batya\GoogleDriveTlcSkif\DrabadanCoreLib\obj\Debug\DrabadanCoreLib.csproj.GenerateResource.Cache

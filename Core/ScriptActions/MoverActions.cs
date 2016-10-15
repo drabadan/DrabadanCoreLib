@@ -68,6 +68,14 @@ namespace DrabadanCoreLib.Core.ScriptActions
             return false;
         }
 
+        public static async Task<bool> MoveToLocation(Point2D location)
+        {
+            return await ScriptApiCallAsync(() =>
+            {
+                return StealthClient.newMoveXY((ushort)location.X, (ushort)location.Y, true, 1, true);
+            });
+        }
+
         
     }
 }

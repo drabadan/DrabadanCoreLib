@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Common\DataContextProviders\ExeSettingsSaveLoad.cs" />
     <Compile Include="Common\DataContextProviders\JSONSaveLoad.cs" />
+    <Compile Include="Common\WinapiHandlers\GetWindowsTitlesAndHWNDS.cs" />
     <Compile Include="Core\Objects\CoreObject.cs" />
     <Compile Include="Core\Objects\IHasId.cs" />
     <Compile Include="Core\Objects\UOObjectProperty.cs" />
@@ -70,8 +71,10 @@
     <Compile Include="Core\ScriptActions\SelfActions.cs" />
     <Compile Include="Core\ScriptActions\TargetActions.cs" />
     <Compile Include="Core\ScriptActions\TooltipHandler.cs" />
+    <Compile Include="Core\ScriptActions\UoClientInteractions.cs" />
     <Compile Include="Core\ScriptActions\UseObjectHandler.cs" />
     <Compile Include="DataModel\WorldEnum.cs" />
+    <Compile Include="PreLaunchHandlings\CharSelectorHandler_Dialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptSDKSource\Attributes\BaseAttributes.cs" />
     <Compile Include="ScriptSDKSource\Attributes\Context Menu\ContextMenu.cs" />
@@ -194,6 +197,13 @@
     <Compile Include="ScriptSDKSource\Utilities\Utility.cs" />
     <Compile Include="SimpleScripts\OSISubScripts\Moongate.cs" />
     <Compile Include="SimpleScripts\OSISubScripts\MoongateTraveller.cs" />
+    <Compile Include="SimpleScripts\UOClientInteractions\GetSomethingFromTarget\Engine\GetSomethingFromTargetEngine.cs" />
+    <Compile Include="SimpleScripts\UOClientInteractions\GetSomethingFromTarget\GUI\GetSomethingFromTarget_UI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SimpleScripts\UOClientInteractions\GetSomethingFromTarget\GUI\GetSomethingFromTarget_UI.Designer.cs">
+      <DependentUpon>GetSomethingFromTarget_UI.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ScriptSDKSource\Data\Extensions\" />
@@ -203,6 +213,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SimpleScripts\UOClientInteractions\GetSomethingFromTarget\GUI\GetSomethingFromTarget_UI.resx">
+      <DependentUpon>GetSomethingFromTarget_UI.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

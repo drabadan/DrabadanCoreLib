@@ -82,7 +82,7 @@ namespace DrabadanCoreLib.Core
             return default(T);
         }
 
-        protected static async Task ScriptApiCallAsync(Action scriptAction, int delay = 0, [CallerMemberName] string caller = "ScriptAction")
+        protected static async Task<bool> ScriptApiCallAsync(Action scriptAction, int delay = 0, [CallerMemberName] string caller = "ScriptAction")
         {
             bool callIsValid = await ValidatorActionsAsync(SimpleCallValidationActionsList);
             if (callIsValid)
@@ -90,9 +90,12 @@ namespace DrabadanCoreLib.Core
                 if (delay > 0)
                     await Task.Delay(delay);
                 await Task.Run(() => scriptAction());
+                return true;
             }
-            else
+            else {
                 Messanger?.Invoke($"[Error message] {caller} call is invalid.");
+                return false;
+            }
         }
 
         private static EventInfo EventResolver(Type evArgsType)
